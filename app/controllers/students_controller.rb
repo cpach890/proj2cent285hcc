@@ -15,4 +15,21 @@ class StudentsController < ApplicationController
       :last_name => ln, :major => maj)
     @student.save
   end
+  def selectStudent
+    @students = Student.all
+  end
+  def deleteStudent
+    id = params[:student_id]
+    @student = Student.find_by_id(id)
+    if @student.delete
+      redirect_to :controller => "students", :action => "selectStudent"
+    end
+  end
+  def editStudent
+    id = params[:student_id]
+    @student = Student.find_by_id(id)
+    if @student.add
+      redirect_to :controller => "students", :action => "editStudent"
+    end
+  end
 end
